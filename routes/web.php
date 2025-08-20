@@ -1,28 +1,38 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Welcomecontroler;
-USE App\Http\Controllers\ContactController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-//Using Closure routes for simplicity
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [Welcomecontroler::class,'index'])->name('welcome.index');
 
-// Using Controller routes for better organization
-Route::get('/', [Welcomecontroler::class,'index']);
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 
-//To handle the blog index
-Route::get('/blog', [BlogController::class, 'index']);
+Route::get('/blog/single-blog-post', [BlogController::class, 'show'])->name('blog.show');
 
-// To handle single blog post view
-Route::get('/blog/single-blog-post', [BlogController::class, 'show']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
-// About page uses a Closure for simplicity
 Route::get('/about', function () {
     return view('about');
+})->name('about');
+
+
+//create a new post
+Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+Route::post('/blog/store', [BlogController::class, 'store'])->name('blog.store');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Contact page uses a Controller for better organization
-Route::get('/contact', [ContactController::class, 'index']);
+
+require __DIR__.'/auth.php';

@@ -454,6 +454,8 @@ textarea {
   }
 }
 
+
+
 @media (max-width: 600px) {
   /* Blog */
   .cards-blog {
@@ -503,3 +505,4 @@ textarea {
     margin-bottom: 25px;
   }
 }
+
