@@ -15,6 +15,7 @@
     />
     <!-- AOS library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
    
   </head>
   <body>

@@ -2,18 +2,19 @@
 
 @section('main-section')
     <main style="max-width:700px; margin:30px auto; padding:20px; border:1px solid #ddd; border-radius:8px; background:#fafafa; font-family:Arial, sans-serif;">
-        <h2 style="text-align:center; margin-bottom:20px; color:#333;">Create New Blog Post</h2>
+        <h2 style="text-align:center; margin-bottom:20px; color:#333;">Edit Blog Post</h2>
 <div class="contact-form">
     <p></p>
     @if(session('status'))
         <div style="color:green; margin-bottom:20px;">{{ session('status') }}</div>
     @endif
-        <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:15px;">
-            @csrf
+        <form action="{{ route('blog.update', $post) }}" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:15px;">
+           @method('PUT')
+           @csrf
 
                     <div style="display:flex; flex-direction:column;">
             <label for="title" style="margin-bottom:5px; font-weight:bold; color:#555;">Title</label>
-            <input type="text" id="title" name="title" value="{{ old('title') }}"
+            <input type="text" id="title" name="title" value="{{ $post->title }}"
                 style="padding:10px; border:1px solid #ccc; border-radius:5px; font-size:14px; width:100%;">
         </div>
             @error('title') 
@@ -40,7 +41,7 @@
             <div style="display:flex; flex-direction:column;">
                 <label for="body" style="margin-bottom:5px; font-weight:bold; color:#555;">Content</label>
                 <textarea id="body" name="body" rows="5" required
-                          style="padding:10px; border:1px solid #ccc; border-radius:5px; font-size:14px; resize:vertical;">{{old('body')}}</textarea>
+                          style="padding:10px; border:1px solid #ccc; border-radius:5px; font-size:14px; resize:vertical;">{{$post->body}}</textarea>
             </div>
             @error('body') 
             <div style="color:red; font-size:12px; margin-top:-10px;">{{ $message }}</div>
