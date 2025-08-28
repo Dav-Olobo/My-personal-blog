@@ -5,9 +5,7 @@
         <h2 style="text-align:center; margin-bottom:20px; color:#333;">Create New Blog Post</h2>
 <div class="contact-form">
     <p></p>
-    @if(session('status'))
-        <div style="color:green; margin-bottom:20px;">{{ session('status') }}</div>
-    @endif
+    @include('includes.flash-message')
         <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:15px;">
             @csrf
 
@@ -34,6 +32,20 @@
                        style="padding:8px; border:1px solid #ccc; border-radius:5px; font-size:14px;">
             </div>
             @error('images') 
+            <div style="color:red; font-size:12px; margin-top:-10px;">{{ $message }}</div>
+            @enderror
+
+
+            <label for="categories">
+                <span>Choose a category:</span>
+            </label>
+            <select name="category_id" id="categories">
+                <option selected disabled>Select option</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category_id') 
             <div style="color:red; font-size:12px; margin-top:-10px;">{{ $message }}</div>
             @enderror
 

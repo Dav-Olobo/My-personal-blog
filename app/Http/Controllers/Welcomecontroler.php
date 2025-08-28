@@ -9,7 +9,7 @@ class Welcomecontroler extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->take(5)->get();
+        $posts = Post::latest()->take(4)->get();
         return view('welcome', compact('posts'));
     }
 }

@@ -5,9 +5,7 @@
         <h2 style="text-align:center; margin-bottom:20px; color:#333;">Edit Blog Post</h2>
 <div class="contact-form">
     <p></p>
-    @if(session('status'))
-        <div style="color:green; margin-bottom:20px;">{{ session('status') }}</div>
-    @endif
+   @include('includes.flash-message')
         <form action="{{ route('blog.update', $post) }}" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:15px;">
            @method('PUT')
            @csrf
@@ -37,6 +35,22 @@
             @error('images') 
             <div style="color:red; font-size:12px; margin-top:-10px;">{{ $message }}</div>
             @enderror
+
+           {{-- Category Field --}}
+        <div style="display:flex; flex-direction:column; margin-bottom:15px;">
+            <label for="categories" style="margin-bottom:5px; font-weight:bold; color:#555;">Choose a category:</label>
+            <select name="category_id" id="categories" style="padding:10px; border:1px solid #ccc; border-radius:5px; font-size:14px;">
+                <option selected disabled>Select option</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ $category->id == old('category_id', $post->category_id) ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id') 
+                <div style="color:red; font-size:12px; margin-top:5px;">{{ $message }}</div>
+            @enderror
+        </div>
 
             <div style="display:flex; flex-direction:column;">
                 <label for="body" style="margin-bottom:5px; font-weight:bold; color:#555;">Content</label>

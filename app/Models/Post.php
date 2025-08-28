@@ -33,5 +33,13 @@ class Post extends Model
     {
         // This assumes the foreign key in the posts table is user_id
         return $this->belongsTo(User::class, 'user_id');
-    }   
+    }  
+    
+    public function category()
+    {
+        // This assumes the foreign key in the posts table is category_id
+        // This function defines the inverse of the one-to-many relationship between Post and Category. 
+        // This post belongs to a category.
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

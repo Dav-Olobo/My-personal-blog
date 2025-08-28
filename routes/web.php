@@ -30,7 +30,10 @@ Route::get('/blog/{post}/edit', [BlogController::class, 'edit'])->name('blog.edi
 Route::put('/blog/{post}', [BlogController::class, 'update'])->name('blog.update');
 
 // Update post Route
-Route::delete('/blog/{post}', [BlogController::class, 'destroy'])->name('blog.delete');
+Route::delete('/blog/{post}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+// Category resource Controller
+Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
