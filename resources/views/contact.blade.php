@@ -42,7 +42,7 @@
 
           <!-- Contact Form -->
           <div class="contact-form">
-            <form action="" method="">
+            <form action="{{route('contact.store')}}" method="">
               <!-- Name -->
               <label for="name"><span>Name</span></label>
               <input type="text" id="name" name="name" value="" />

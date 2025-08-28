@@ -11,6 +11,7 @@ Route::get('/', [Welcomecontroler::class,'index'])->name('welcome.index');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/about', function () {
     return view('about');
